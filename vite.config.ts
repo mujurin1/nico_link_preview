@@ -19,6 +19,11 @@ const manifest = defineManifest(({ mode }) => ({
       matches: ["https://*.nicovideo.jp/*"]
     }
   ],
+  options_page: "options.html",
+  background: {
+    service_worker: "src/background.ts"
+  },
+
   permissions: [
     "storage",
   ],
