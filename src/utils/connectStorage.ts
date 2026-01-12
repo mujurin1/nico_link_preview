@@ -1,5 +1,5 @@
 import { trackStore } from "@solid-primitives/deep";
-import { createEffect, on } from "solid-js";
+import { createEffect, createRoot, on } from "solid-js";
 import { SetStoreFunction, Store } from "solid-js/store";
 
 /**
@@ -17,18 +17,20 @@ export function connectStorage<T extends object = {},>(
   let saving = false;
 
   // データ保存
-  createEffect(
-    on(
-      () => trackStore(store),
-      (value) => {
-        saving = true;
-        const safeValue = safeTransform(value);
-        chrome.storage.local.set({ [storageKey]: safeValue })
-          .finally(() => saving = false);
-      },
-      { defer: true }
-    )
-  );
+  createRoot(() => {
+    createEffect(
+      on(
+        () => trackStore(store),
+        (value) => {
+          saving = true;
+          const safeValue = safeTransform(value);
+          chrome.storage.local.set({ [storageKey]: safeValue })
+            .finally(() => saving = false);
+        },
+        { defer: true }
+      )
+    );
+  });
 
   // 初期データ読み込み
   chrome.storage.local.get(storageKey, (data) => {
