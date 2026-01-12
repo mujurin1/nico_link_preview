@@ -28,11 +28,8 @@ const manifest = defineManifest(({ mode }) => ({
     ...(mode === "development" ? ["<all_urls>"] : []),
   ],
 
-  background: {
-    service_worker: "src/background.ts"
-  },
-
-  options_page: "options.html",
+  // これがないと background.ts でアイコンクリック時の動作を設定できない
+  action: {},
 }));
 
 export default defineConfig({
