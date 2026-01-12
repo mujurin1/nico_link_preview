@@ -7,7 +7,7 @@ import zipPack from "vite-plugin-zip-pack";
 const manifest = defineManifest(({ mode }) => ({
   manifest_version: 3,
   name: "ニコニコリンクプレビュー",
-  version: "0.1.0",
+  version: "0.1.1",
   icons: {
     128: "assets/128x128.png",
   },
